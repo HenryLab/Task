@@ -1,0 +1,66 @@
+<nav class="navbar navbar-ligth bg-primary">
+  <div class="container-fluid">
+    <h1 style="color: aliceblue;">Add Employee</h1>
+    <div class="d-flex">
+      <button  class="btn btn-success" type="button" data-bs-toggle="modal"
+        data-bs-target="#Modal" (click)="clickAddEmployee()">Add Employee</button>
+      <button routerLink="/login" class="btn btn-danger mx-2">Logout</button>
+    </div>
+  </div>
+</nav>
+
+<div class="row row-cols-3 row-cols-md-12 g-4" >
+  <div class="col" *ngFor="let data of employeeData">
+    <div class="card">
+      <img src="{{data.avatar}}" class="card-img-top " style="width: 50%; margin: 20px  30px;" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{data.first_name}}   {{data.last_name}}</h5>
+
+        <p class="card-text">{{data.email}}</p>
+
+      <button  style="color: aliceblue; padding:10px 20px; margin-right: 150px;" type="button" data-bs-toggle="modal"
+      data-bs-target="#Modal" class="btn btn-info" (click)="onEdit(data)">Edit</button>
+    <button style="color: aliceblue; padding:10px 20px; " (click)="deleteEmployee(data)" class="btn btn-danger">Delete</button>
+  </div>
+    </div>
+  </div>
+
+<!-- Modal-->
+<div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalLabel">Employee Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]= "formValue">
+          <div class="mb-3">
+            <label for="name" class="form-label">First Name</label>
+            <input type="text" formControlName="first_name" class="form-control" id="name"
+              aria-describedby="emailHelp">
+
+          </div>
+          <div class="mb-3">
+            <label for="name" class="form-label">Last Name</label>
+            <input type="text" formControlName="last_name" class="form-control" id="name">
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email ID</label>
+            <input type="email" formControlName="email" class="form-control" id="email">
+          </div>
+          <div class="mb-3">
+            <label for="Input" class="form-label">url</label>
+            <input type="number" formControlName="avatar" class="form-control" id="Input">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" *ngIf="showAdd" (click)="postEmployeeDetails()" class="btn btn-primary">Add</button>
+        <button type="button"
+          class="btn btn-primary" *ngIf="showUpdate" (click)="updateEmployeeDetails()">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
